@@ -1,19 +1,19 @@
 package com.spredfast.api.sandbox.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import com.spredfast.api.sandbox.domain.SampleEntity;
 import com.spredfast.api.sandbox.service.ISampleService;
 
-@Controller
+@RestController
 public class SampleController {
 	@Autowired
 	private ISampleService sampleService;
 
 	@RequestMapping("/")
-	@ResponseBody
-	String home() {
-		return sampleService.findAllEntities().toString();
+	public List<SampleEntity> home() {
+		return sampleService.findAllEntities();
 	}
 }
