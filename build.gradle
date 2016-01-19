@@ -16,7 +16,7 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'sapi-andbox'
+    baseName = 'sf-api-sandbox'
     version = '0.0.1-SNAPSHOT'
 }
 sourceCompatibility = 1.8
@@ -30,7 +30,9 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter')
     compile('org.springframework.boot:spring-boot-starter-web')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile("org.webjars:bootstrap:3.0.3")
+    compile("org.webjars:jquery:2.0.3-1")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 

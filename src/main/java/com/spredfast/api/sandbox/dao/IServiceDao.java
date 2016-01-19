@@ -1,4 +1,4 @@
-package com.spredfast.api.sandbox.data;
+package com.spredfast.api.sandbox.dao;
 
 import java.util.List;
 import com.spredfast.api.sandbox.domain.SampleEntity;

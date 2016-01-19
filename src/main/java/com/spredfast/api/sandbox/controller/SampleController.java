@@ -12,7 +12,7 @@ public class SampleController {
 	@Autowired
 	private ISampleService sampleService;
 
-	@RequestMapping("/")
+	@RequestMapping("/sample")
 	public List<SampleEntity> home() {
 		return sampleService.findAllEntities();
 	}

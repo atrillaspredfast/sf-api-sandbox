@@ -1,4 +1,4 @@
-package com.spredfast.api.sandbox.data;
+package com.spredfast.api.sandbox.dao;
 
 import java.util.Arrays;
 import java.util.List;

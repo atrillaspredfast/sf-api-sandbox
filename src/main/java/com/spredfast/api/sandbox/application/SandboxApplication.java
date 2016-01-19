@@ -1,4 +1,4 @@
-package com.spredfast.api.sandbox;
+package com.spredfast.api.sandbox.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
