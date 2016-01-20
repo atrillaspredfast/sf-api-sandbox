@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>Environments : View all</title>
+</head>
+<body>
+	<h1 layout:fragment="header">Environments : View all</h1>
+	<div layout:fragment="content" class="container">
+		<div class="pull-right">
+			<a href="form.html" th:href="@{/(form)}">Create Environment</a>
+		</div>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Created</td>
+					<td>Summary</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${environments.empty}">
+					<td colspan="3">No environments</td>
+				</tr>
+				<tr th:each="environment : ${environments}">
+					<td th:text="${environment.id}">1</td>
+					<td th:text="${#calendars.format(environment.created)}">July 11,
+						2012 2:17:16 PM CDT</td>
+					<td><a href="view.html" th:href="@{'/' + ${environment.id}}"
+						th:text="${environment.summary}"> The summary </a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
