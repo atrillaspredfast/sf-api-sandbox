@@ -39,10 +39,11 @@
                 onComplete: function (swaggerApi, swaggerUi) {
                     if (typeof initOAuth == "function") {
                         initOAuth({
-                            clientId: "your-client-id",
-                            clientSecret: "your-client-secret-if-required",
-                            realm: "your-realms",
-                            appName: "your-app-name",
+                            //QA10
+                            clientId: "39zn2zrtfehncfpemzq7ak9r",
+                            clientSecret: "heKxvEhxaC",
+                            realm: "Spredfast",
+                            appName: "Sandbox",
                             scopeSeparator: ",",
                             additionalQueryStringParams: {}
                         });
@@ -78,8 +79,9 @@
     <div class="navbar">
         <div class="navbar-inner">
             <ul class="nav">
-                <li><a href="/"> Configuration </a></li>
+                <li><a href="/"> Environments </a></li>
                 <li><a href="/definition/sf-api-definition.html"> Definition </a></li>
+                <li><a href="#"> Auth </a></li>
             </ul>
         </div>
     </div>

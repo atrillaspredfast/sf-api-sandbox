@@ -16,10 +16,14 @@ public class SfApiDefinitionController {
 	@Autowired
 	private EnvironmentRepository environmentRepository;
 
+	@Autowired
+	private SessionData sessionData;
+
 	@RequestMapping("/sf-api-definition.json")
 	public String fetchDefinition() {
 		Environment environment = environmentRepository.findAll().iterator().next();
 
+		// TODO parse Httpresponse and set authorizationURL and tokenURL (sessionData)
 		return sfApiDefinitionService.fetchDefinition(environment);
 	}
 }
