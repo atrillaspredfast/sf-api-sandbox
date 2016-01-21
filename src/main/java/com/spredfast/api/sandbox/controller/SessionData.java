@@ -1,14 +1,9 @@
 package com.spredfast.api.sandbox.controller;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-@Component
-@Scope("session")
 public class SessionData {
-	private String authorizationURL;
+	private String authorizationURL = "https://infralogin.spredfast.com/v1/oauth/authorize";
 
-	private String tokenURL;
+	private String tokenURL = "https://infralogin.spredfast.com/v1/oauth/token";
 
 	public String getAuthorizationURL() {
 		return authorizationURL;
