@@ -1,6 +1,7 @@
 .idea/
 .gradle/
 build/
+target/
 gradle/
 *.iml
 *.ipr

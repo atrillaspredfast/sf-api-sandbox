@@ -10,19 +10,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.spredfast.api.sandbox.dao.EnvironmentRepository;
 import com.spredfast.api.sandbox.domain.Environment;
-import com.spredfast.api.sandbox.service.ISfApiDefinitionService;
 
 @Controller
-@RequestMapping("/environments/")
-public class SfApiConfigurationController {
+@RequestMapping("/")
+public class EnvironmentController {
+	private final EnvironmentRepository environmentRepository;
 
 	@Autowired
-	private ISfApiDefinitionService sfApiDefinitionService;
+	public EnvironmentController(EnvironmentRepository environmentRepository) {
+		this.environmentRepository = environmentRepository;
+	}
 
 	@RequestMapping
 	public ModelAndView list() {
-		Iterable<Environment> environments = this.sfApiDefinitionService.findAll();
+		Iterable<Environment> environments = this.environmentRepository.findAll();
 		return new ModelAndView("environments/list", "environments", environments);
 	}
 
@@ -37,11 +40,12 @@ public class SfApiConfigurationController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView create(@Valid Environment environment, BindingResult result, RedirectAttributes redirect) {
+	public ModelAndView create(@Valid Environment environment, BindingResult result,
+			RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			return new ModelAndView("environments/form", "formErrors", result.getAllErrors());
 		}
-		environment = this.sfApiDefinitionService.save(environment);
+		environment = this.environmentRepository.save(environment);
 		redirect.addFlashAttribute("globalEnvironment", "Successfully created a new environment");
 		return new ModelAndView("redirect:/{environment.id}", "environment.id", environment.getId());
 	}
@@ -53,8 +57,8 @@ public class SfApiConfigurationController {
 
 	@RequestMapping(value = "delete/{id}")
 	public ModelAndView delete(@PathVariable("id") Long id) {
-		this.sfApiDefinitionService.deleteEnvironment(id);
-		Iterable<Environment> environments = this.sfApiDefinitionService.findAll();
+		this.environmentRepository.deleteEnvironment(id);
+		Iterable<Environment> environments = this.environmentRepository.findAll();
 		return new ModelAndView("environments/list", "environments", environments);
 	}
 

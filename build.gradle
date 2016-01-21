@@ -21,6 +21,10 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
+springBoot {
+    classifier = 'exec'
+}
+
 jar {
     baseName = 'sf-api-sandbox'
     version = '0.0.1-SNAPSHOT'
@@ -38,13 +42,10 @@ repositories {
 
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile("org.webjars:bootstrap:3.0.3")
-    compile("org.webjars:jquery:2.0.3-1")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.hibernate:hibernate-validator")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
-
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.9'
