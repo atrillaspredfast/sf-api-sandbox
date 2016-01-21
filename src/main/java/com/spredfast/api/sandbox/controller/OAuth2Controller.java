@@ -28,7 +28,11 @@ public class OAuth2Controller {
 	public String fetchDefinition(@RequestParam(name = "state") String state,
 			@RequestParam(name = "code") String code) {
 		RestTemplate restTemplate = new RestTemplate();
-		TokenResponse authorizationResponse = restTemplate.getForObject(sessionData.getTokenURL(), TokenResponse.class);
+		TokenResponse tokenResponse = restTemplate.getForObject(sessionData.getTokenURL(), TokenResponse.class);
+
+		if (tokenResponse.isSuccess() && tokenResponse.getAccessToken().isPresent()) {
+			sessionData.setAccecssToken(tokenResponse.getAccessToken().get());
+		}
 		return "";
 	}
 }
