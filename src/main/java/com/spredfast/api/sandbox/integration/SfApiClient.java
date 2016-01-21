@@ -1,5 +1,6 @@
 package com.spredfast.api.sandbox.integration;
 
+import java.text.MessageFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import com.spredfast.api.sandbox.domain.Environment;
@@ -15,7 +16,8 @@ public class SfApiClient implements ISfApiClient {
 	}
 
 	private String getFetchDefinitionURI(Environment environment) {
-		//FIXME : build uri using client attributes
-		return "http://localhost:8092/swagger.json";
+		return MessageFormat.format("{0}://{1}:{2}/{3}swagger.json",
+				environment.getScheme(), environment.getHost(),
+				environment.getPort(), environment.getUrlPrefix());
 	}
 }

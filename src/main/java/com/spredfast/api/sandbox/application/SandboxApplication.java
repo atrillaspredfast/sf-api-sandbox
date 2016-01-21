@@ -30,9 +30,4 @@ public class SandboxApplication {
 			}
 		};
 	}
-
-	@Bean
-	public Environment environment() {
-		return new Environment();
-	}
 }
