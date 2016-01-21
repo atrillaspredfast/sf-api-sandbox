@@ -14,10 +14,19 @@
 		</div>
 		<dl>
 			<dt>ID</dt>
-			<dd id="id" th:text="${environment.id}">123</dd>
+			<dd id="id" th:text="${environment.id}"></dd>
+
+			<dt>Scheme</dt>
+			<dd id="scheme" th:text="${environment.scheme}"></dd>
+
 			<dt>Host</dt>
-			<dd id="host" th:text="${environment.host}">A short host...
-			</dd>
+			<dd id="host" th:text="${environment.host}"></dd>
+
+			<dt>Port</dt>
+			<dd id="port" th:text="${environment.port}"></dd>
+
+			<dt>URL Prefix</dt>
+			<dd id="urlPrefix" th:text="${environment.urlPrefix}"></dd>
 		</dl>
 		<div class="pull-left">
 			<a href="environments" th:href="@{'/delete/' + ${environment.id}}">

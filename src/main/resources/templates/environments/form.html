@@ -18,10 +18,28 @@
 				<a th:href="@{/}" href="environments.html"> Environments </a>
 			</div>
 			<input type="hidden" th:field="*{id}"
-				th:class="${#fields.hasErrors('id')} ? 'field-error'" /> <label
-				for="host">Host</label> <input type="text"
-				th:field="*{host}"
-				th:class="${#fields.hasErrors('host')} ? 'field-error'" />
+				th:class="${#fields.hasErrors('id')} ? 'field-error'" />
+
+			<label for="scheme">Scheme</label>
+			<input type="text"
+				th:field="*{scheme}"
+				th:class="${#fields.hasErrors('scheme')} ? 'field-error'" />
+
+			<label for="host">Host</label>
+			<input type="text"
+				   th:field="*{host}"
+				   th:class="${#fields.hasErrors('host')} ? 'field-error'" />
+
+			<label for="port">Port</label>
+			<input type="text"
+				   th:field="*{port}"
+				   th:class="${#fields.hasErrors('port')} ? 'field-error'" />
+
+			<label for="urlPrefix">URL Prefix</label>
+			<input type="text"
+			th:field="*{urlPrefix}"
+			th:class="${#fields.hasErrors('urlPrefix')} ? 'field-error'" />
+
 			<div class="form-actions">
 				<input type="submit" value="Save" />
 			</div>

@@ -16,16 +16,22 @@
 				<tr>
 					<td>ID</td>
 					<td>Host</td>
+					<td>Scheme</td>
+					<td>Port</td>
+					<td>URL Prefix</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:if="${environments.empty}">
-					<td colspan="3">No environments</td>
+					<td colspan="5">No environments</td>
 				</tr>
 				<tr th:each="environment : ${environments}">
-					<td th:text="${environment.id}">1</td>
+					<td th:text="${environment.id}"></td>
 					<td><a href="view.html" th:href="@{'/' + ${environment.id}}"
-						th:text="${environment.host}"> The host </a></td>
+						th:text="${environment.host}">  </a></td>
+					<td th:text="${environment.scheme}"></td>
+					<td th:text="${environment.port}"></td>
+					<td th:text="${environment.urlPrefix}"></td>
 				</tr>
 			</tbody>
 		</table>
