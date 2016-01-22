@@ -58,6 +58,12 @@
                     $('pre code').each(function (i, e) {
                         hljs.highlightBlock(e)
                     });
+
+                    var api_version = swaggerApi.info.version.split('.')[0];
+                    $('input[name="apiVersion"]').val(api_version);
+                    $('input[name="apiVersion"]').attr('readonly', true);
+
+                    document.title = swaggerApi.info.title;
                 },
                 onFailure: function (data) {
                     log("Unable to Load SwaggerUI");
