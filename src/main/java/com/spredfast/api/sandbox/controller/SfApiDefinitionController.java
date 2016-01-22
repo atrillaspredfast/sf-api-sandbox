@@ -26,4 +26,9 @@ public class SfApiDefinitionController {
 		// TODO parse Httpresponse and set authorizationURL and tokenURL (sessionData)
 		return sfApiDefinitionService.fetchDefinition(environment);
 	}
+
+	@RequestMapping("/sf-api-client-configuration.json")
+	public Configuration getConfiguration() {
+		return new Configuration(sessionData.getClientId(), sessionData.getClientSecret());
+	}
 }

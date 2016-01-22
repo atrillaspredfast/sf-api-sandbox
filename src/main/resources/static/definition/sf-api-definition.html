@@ -27,11 +27,17 @@
     <script type="text/javascript">
         $(function () {
             var url = "/sf-api-definition.json";
+            var sessionClientId;
+            var sessionClientSecret;
 
             // Pre load translate...
             if (window.SwaggerTranslator) {
                 window.SwaggerTranslator.translate();
             }
+            $.ajax({url: "/sf-api-client-configuration.json", success: function(result){
+                sessionClientId = result.clientId;
+                sessionClientSecret = result.clientSecret;
+            }});
             window.swaggerUi = new SwaggerUi({
                 url: url,
                 dom_id: "swagger-ui-container",
@@ -40,8 +46,8 @@
                     if (typeof initOAuth == "function") {
                         initOAuth({
                             //QA10
-                            clientId: "39zn2zrtfehncfpemzq7ak9r",
-                            clientSecret: "heKxvEhxaC",
+                            clientId: sessionClientId,
+                            clientSecret: sessionClientSecret,
                             realm: "Spredfast",
                             appName: "Sandbox",
                             scopeSeparator: ",",
