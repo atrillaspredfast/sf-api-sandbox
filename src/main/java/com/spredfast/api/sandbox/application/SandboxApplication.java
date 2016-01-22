@@ -19,7 +19,10 @@ public class SandboxApplication {
 
 	@Bean
 	public SessionData sessionData() {
-		return new SessionData();
+		SessionData sessionData = new SessionData();
+		sessionData.setClientId("39zn2zrtfehncfpemzq7ak9r");
+		sessionData.setClientSecret("heKxvEhxaC");
+		return sessionData;
 	}
 
 	@Bean
