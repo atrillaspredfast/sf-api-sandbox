@@ -1,5 +1,6 @@
 package com.spredfast.api.sandbox.controller;
 
+import java.text.MessageFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.spredfast.api.sandbox.dao.EnvironmentRepository;
 import com.spredfast.api.sandbox.service.ISfApiDefinitionService;
@@ -30,7 +33,7 @@ public class OAuth2Controller {
 	private SessionData sessionData;
 
 	@RequestMapping("/definition/o2c.html")
-	public String fetchDefinition(@RequestParam(name = "state") String state,
+	public RedirectView fetchDefinition(@RequestParam(name = "state") String state,
 			@RequestParam(name = "code") String code) {
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -57,7 +60,7 @@ public class OAuth2Controller {
 		params.add("client_id", clientId);
 		params.add("client_secret", clientSecret);
 		//FIXME : use the same URL here and in Swagger UI's initial request
-		params.add("redirect_uri", "http://localhost:18080/definition/o2c.html");
+		params.add("redirect_uri", "http://localhost:8080/definition/o2c.html");
 		params.add("code", code);		
 
 		TokenResponse tokenResponse = null;
@@ -71,6 +74,6 @@ public class OAuth2Controller {
 		if (tokenResponse != null && tokenResponse.isSuccess() && tokenResponse.getAccessToken().isPresent()) {
 			sessionData.setAccecssToken(tokenResponse.getAccessToken().get());
 		}
-		return "";
+		return new RedirectView(MessageFormat.format("/definition/auth_completed.html?state={0}&code={1}", state, tokenResponse));
 	}
 }
