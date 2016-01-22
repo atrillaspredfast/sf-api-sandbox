@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import com.spredfast.api.sandbox.dao.ClientRepository;
 import com.spredfast.api.sandbox.dao.EnvironmentRepository;
-import com.spredfast.api.sandbox.domain.Client;
 import com.spredfast.api.sandbox.service.ISfApiDefinitionService;
 
 @RestController
@@ -22,9 +20,6 @@ public class OAuth2Controller {
 	private EnvironmentRepository environmentRepository;
 
 	@Autowired
-	private ClientRepository clientRepository;
-
-	@Autowired
 	private SessionData sessionData;
 
 	@RequestMapping("/definition/o2c.html")
@@ -32,10 +27,10 @@ public class OAuth2Controller {
 			@RequestParam(name = "code") String code) {
 		RestTemplate restTemplate = new RestTemplate();
 		Map<String, String> params = new HashMap<>();
-		Client client = clientRepository.findAll().iterator().next();
+		Configuration configuration = new Configuration(sessionData.getClientId(), sessionData.getClientSecret());
 
-		params.put("client_id", client.getAuthClientId());
-		params.put("client_secret", client.getAuthSecret());
+		params.put("client_id", configuration.getClientId());
+		params.put("client_secret", configuration.getClientSecret());
 		//FIXME : add SessionData.uriRedirect
 //		params.put("redirect_uri", sessionData.getUriRedirect());
 		params.put("code", code);

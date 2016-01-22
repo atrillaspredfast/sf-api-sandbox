@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>Configuration</title>
+</head>
+<body>
+	<h1 layout:fragment="header">Configuration</h1>
+	<div layout:fragment="content" class="container">
+		<div class="alert alert-success" th:if="${globalConfiguration}"
+			th:text="${globalConfiguration}">Some Success configuration</div>
+		<dl>
+			<dt>Client Id</dt>
+			<dd id="clientId" th:text="${configuration.clientId}"></dd>
+
+			<dt>Client Secret</dt>
+			<dd id="clientSecret" th:text="${configuration.clientSecret}"></dd>
+
+		</dl>
+	</div>
+</body>
+</html>
