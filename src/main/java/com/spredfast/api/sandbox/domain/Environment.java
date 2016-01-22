@@ -15,6 +15,14 @@ public class Environment {
 	public Environment() {
 	}
 
+	public Environment(Long id, String scheme, String host, String port, String urlPrefix) {
+		this.id = id;
+		this.scheme = scheme;
+		this.host = host;
+		this.port = port;
+		this.urlPrefix = urlPrefix;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -24,7 +24,10 @@ public class SandboxApplication {
 
 	@Bean
 	public EnvironmentRepository environmentRepository() {
-		return new InMemoryEnvironmentRepository();
+		EnvironmentRepository environmentRepository = new InMemoryEnvironmentRepository();
+
+		environmentRepository.save(new Environment(1L, "http", "localhost", "8092", ""));
+		return environmentRepository;
 	}
 
 	@Bean
