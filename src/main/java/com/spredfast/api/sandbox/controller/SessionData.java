@@ -3,7 +3,7 @@ package com.spredfast.api.sandbox.controller;
 public class SessionData {
 	private String authorizationURL = "https://infralogin.spredfast.com/v1/oauth/authorize";
 	private String tokenURL = "https://infralogin.spredfast.com/v1/oauth/token";
-	private String accecssToken;
+	private String accessToken;
 	private String clientSecret;
 	private String clientId;
 
@@ -23,12 +23,12 @@ public class SessionData {
 		this.tokenURL = tokenURL;
 	}
 
-	public String getAccecssToken() {
-		return accecssToken;
+	public String getAccessToken() {
+		return accessToken;
 	}
 
-	public void setAccecssToken(String accecssToken) {
-		this.accecssToken = accecssToken;
+	public void setAccessToken(String accessToken) {
+		this.accessToken = accessToken;
 	}
 
 	public String getClientSecret() {

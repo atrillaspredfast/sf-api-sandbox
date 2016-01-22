@@ -1,9 +1,12 @@
 package com.spredfast.api.sandbox.controller;
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -31,6 +34,8 @@ public class OAuth2Controller {
 
 	@Autowired
 	private SessionData sessionData;
+
+	Logger log = Logger.getLogger(OAuth2Controller.class);
 
 	@RequestMapping("/definition/o2c.html")
 	public RedirectView fetchDefinition(@RequestParam(name = "state") String state,
@@ -60,7 +65,15 @@ public class OAuth2Controller {
 		params.add("client_id", clientId);
 		params.add("client_secret", clientSecret);
 		//FIXME : use the same URL here and in Swagger UI's initial request
-		params.add("redirect_uri", "http://localhost:8080/definition/o2c.html");
+		Properties props = new Properties();
+		String serverPort = "8080";
+		try {
+			props.load(ClassLoader.getSystemResourceAsStream("application.properties"));
+			serverPort = props.getProperty("server.port");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		params.add("redirect_uri", "http://localhost:" + serverPort + "/definition/o2c.html");
 		params.add("code", code);		
 
 		TokenResponse tokenResponse = null;
@@ -72,8 +85,12 @@ public class OAuth2Controller {
 		}
 
 		if (tokenResponse != null && tokenResponse.isSuccess() && tokenResponse.getAccessToken().isPresent()) {
-			sessionData.setAccecssToken(tokenResponse.getAccessToken().get());
+			sessionData.setAccessToken(tokenResponse.getAccessToken().get());
+			log.info("Access token is: " + sessionData.getAccessToken());
+			return new RedirectView(MessageFormat.format("/definition/auth_completed.html?access_token={0}&state={1}", sessionData.getAccessToken(), state));
 		}
-		return new RedirectView(MessageFormat.format("/definition/auth_completed.html?state={0}&code={1}", state, tokenResponse));
+		else {
+			return new RedirectView("/");
+		}
 	}
 }
