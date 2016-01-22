@@ -1,12 +1,19 @@
 package com.spredfast.api.sandbox.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
 import com.spredfast.api.sandbox.dao.EnvironmentRepository;
 import com.spredfast.api.sandbox.service.ISfApiDefinitionService;
 
@@ -26,20 +33,42 @@ public class OAuth2Controller {
 	public String fetchDefinition(@RequestParam(name = "state") String state,
 			@RequestParam(name = "code") String code) {
 		RestTemplate restTemplate = new RestTemplate();
-		Map<String, String> params = new HashMap<>();
-		Configuration configuration = new Configuration(sessionData.getClientId(), sessionData.getClientSecret());
 
-		params.put("client_id", configuration.getClientId());
-		params.put("client_secret", configuration.getClientSecret());
-		//FIXME : add SessionData.uriRedirect
-//		params.put("redirect_uri", sessionData.getUriRedirect());
-		params.put("code", code);
+		List<HttpMessageConverter<?>> list = new LinkedList<>();
+		list.add(new FormHttpMessageConverter());
+		list.add(new MappingJackson2HttpMessageConverter());
+		restTemplate.setMessageConverters(list);
+		
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 
-		// FIXME : add post method call
-//		TokenResponse tokenResponse = restTemplate.postForObject(sessionData.getTokenURL(), TokenResponse.class, params);
+		// FIXME
+		String tokenUrl = sessionData.getTokenURL();
+		if (tokenUrl == null) {
+			tokenUrl = "https://infralogin.spredfast.com/v1/oauth/token";
+		}
+		String clientId = sessionData.getClientId();
+		if (clientId == null) {
+			clientId = "39zn2zrtfehncfpemzq7ak9r";
+		}
+		String clientSecret = sessionData.getClientSecret();
+		if (clientSecret == null) {
+			clientSecret = "heKxvEhxaC";
+		}
+		params.add("client_id", clientId);
+		params.add("client_secret", clientSecret);
+		//FIXME : use the same URL here and in Swagger UI's initial request
+		params.add("redirect_uri", "http://localhost:18080/definition/o2c.html");
+		params.add("code", code);		
+
 		TokenResponse tokenResponse = null;
+		try {
+			tokenResponse = restTemplate.postForObject(tokenUrl, params, TokenResponse.class);
+		}
+		catch (Throwable t) {
+			t.printStackTrace(System.err);
+		}
 
-		if (tokenResponse.isSuccess() && tokenResponse.getAccessToken().isPresent()) {
+		if (tokenResponse != null && tokenResponse.isSuccess() && tokenResponse.getAccessToken().isPresent()) {
 			sessionData.setAccecssToken(tokenResponse.getAccessToken().get());
 		}
 		return "";
