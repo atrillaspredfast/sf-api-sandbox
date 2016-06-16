@@ -6,12 +6,18 @@ public class Configuration {
 
 	private String clientSecret;
 
+	private String apiHost;
+
+	private String apiBasePath;
+
 	public Configuration() {
 	}
 
-	public Configuration(String clientId, String clientSecret) {
+	public Configuration(String clientId, String clientSecret, String apiHost, String apiBasePath) {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
+		this.apiHost = apiHost;
+		this.apiBasePath = apiBasePath;
 	}
 
 	public String getClientId() {
@@ -28,5 +34,21 @@ public class Configuration {
 
 	public void setClientSecret(String clientSecret) {
 		this.clientSecret = clientSecret;
+	}
+
+	public String getApiHost() {
+		return apiHost;
+	}
+
+	public void setApiHost(String apiHost) {
+		this.apiHost = apiHost;
+	}
+
+	public String getApiBasePath() {
+		return apiBasePath;
+	}
+
+	public void setApiBasePath(String apiBasePath) {
+		this.apiBasePath = apiBasePath;
 	}
 }

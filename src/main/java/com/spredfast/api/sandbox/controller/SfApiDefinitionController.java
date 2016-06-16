@@ -29,6 +29,6 @@ public class SfApiDefinitionController {
 
 	@RequestMapping("/sf-api-client-configuration.json")
 	public Configuration getConfiguration() {
-		return new Configuration(sessionData.getClientId(), sessionData.getClientSecret());
+		return new Configuration(sessionData.getClientId(), sessionData.getClientSecret(), sessionData.getApiHost(), sessionData.getApiBasePath());
 	}
 }

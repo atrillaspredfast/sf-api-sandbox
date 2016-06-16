@@ -17,7 +17,7 @@ public class ConfigurationController {
 
 	@RequestMapping
 	public ModelAndView getClientSessionData() {
-		Configuration configuration = new Configuration(sessionData.getClientId(), sessionData.getClientSecret());
+		Configuration configuration = new Configuration(sessionData.getClientId(), sessionData.getClientSecret(), sessionData.getApiHost(), sessionData.getApiBasePath());
 
 		return new ModelAndView("configuration/form", "configuration", configuration);
 	}

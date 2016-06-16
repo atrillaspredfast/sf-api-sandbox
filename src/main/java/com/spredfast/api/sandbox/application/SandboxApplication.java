@@ -22,6 +22,8 @@ public class SandboxApplication {
 		SessionData sessionData = new SessionData();
 		sessionData.setClientId("39zn2zrtfehncfpemzq7ak9r");
 		sessionData.setClientSecret("heKxvEhxaC");
+		sessionData.setApiHost("localhost:8092");
+		sessionData.setApiBasePath("");
 		return sessionData;
 	}
 
@@ -29,7 +31,7 @@ public class SandboxApplication {
 	public EnvironmentRepository environmentRepository() {
 		EnvironmentRepository environmentRepository = new InMemoryEnvironmentRepository();
 
-		environmentRepository.save(new Environment(1L, "http", "localhost", "8092", ""));
+		environmentRepository.save(new Environment(1L, "http", "localhost", "8092", "v1/docs"));
 		return environmentRepository;
 	}
 

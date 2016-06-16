@@ -6,6 +6,8 @@ public class SessionData {
 	private String accessToken;
 	private String clientSecret;
 	private String clientId;
+	private String apiHost;
+	private String apiBasePath;
 
 	public String getAuthorizationURL() {
 		return authorizationURL;
@@ -45,5 +47,21 @@ public class SessionData {
 
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
+	}
+
+	public String getApiHost() {
+		return apiHost;
+	}
+
+	public void setApiHost(String apiHost) {
+		this.apiHost = apiHost;
+	}
+
+	public String getApiBasePath() {
+		return apiBasePath;
+	}
+
+	public void setApiBasePath(String apiBasePath) {
+		this.apiBasePath = apiBasePath;
 	}
 }

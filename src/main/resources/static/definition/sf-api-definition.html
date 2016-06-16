@@ -29,14 +29,18 @@
             var url = "/sf-api-definition.json";
             var sessionClientId;
             var sessionClientSecret;
+            var apiHost;
+            var apiBasePath;
 
             // Pre load translate...
             if (window.SwaggerTranslator) {
                 window.SwaggerTranslator.translate();
             }
-            $.ajax({url: "/sf-api-client-configuration.json", success: function(result){
+            $.ajax({url: "/sf-api-client-configuration.json", success: function(result) {
                 sessionClientId = result.clientId;
                 sessionClientSecret = result.clientSecret;
+                apiHost = result.apiHost;
+                apiBasePath = result.apiBasePath;
             }});
             window.swaggerUi = new SwaggerUi({
                 url: url,
@@ -77,12 +81,18 @@
 
             window.swaggerUi.load();
 
+            if (apiHost && apiBasePath) {
+                window.swaggerUi.api.setHost(apiHost);
+                window.swaggerUi.api.setBasePath(apiBasePath);
+            }
+
             function log() {
                 if ('console' in window) {
                     console.log.apply(console, arguments);
                 }
             }
         });
+
     </script>
 </head>
 
