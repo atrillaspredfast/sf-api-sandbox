@@ -16,8 +16,15 @@ public class SfApiClient implements ISfApiClient {
 	}
 
 	private String getFetchDefinitionURI(Environment environment) {
-		return MessageFormat.format("{0}://{1}:{2}/{3}swagger.json",
+		String url = environment.getUrlPrefix();
+		if (url == null) {
+			url = "swagger.json";
+		}
+		else if (url.startsWith("/")) {
+			url = url.substring(1);
+		}
+		return MessageFormat.format("{0}://{1}:{2}/{3}",
 				environment.getScheme(), environment.getHost(),
-				environment.getPort(), environment.getUrlPrefix());
+				environment.getPort(), url);
 	}
 }
